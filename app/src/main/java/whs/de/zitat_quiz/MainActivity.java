@@ -13,9 +13,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button btnSecondActivity = findViewById(R.id.btnCategoryActivity);
+        Button btnCategoryActivity = findViewById(R.id.btnCategoryActivity);
 
-        btnSecondActivity.setOnClickListener(new View.OnClickListener() {
+        btnCategoryActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), CategoryActivity.class);
