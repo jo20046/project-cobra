@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">zitat-quiz</string>
+    <string name="btnCategoryActivity">Start</string>
 </resources>
