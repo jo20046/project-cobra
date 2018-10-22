@@ -14,4 +14,5 @@ public class QuizActivity extends AppCompatActivity {
         TextView txtQuestion = findViewById(R.id.quizText);
         txtQuestion.setText(DatabaseUtils.pullQuestionText(0));
     }
+
 }

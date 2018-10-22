@@ -79,6 +79,17 @@ public class DatabaseUtils {
 
     private static void addQuestion(List<Question> questionList, List<Answer> answerList, String question, String category, String answer) {
         questionList.add(0, new Question(question, category, answer));
-        answerList.add(questionList.get(0).getCorrectAnswer());
+        if (!containsAnswer(answerList, answer)) {
+            answerList.add(questionList.get(0).getCorrectAnswer());
+        }
+    }
+
+    private static boolean containsAnswer(List<Answer> answerList, String answer) {
+        for (Answer listEntry : answerList) {
+            if (listEntry.getValue().equals(answer)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
