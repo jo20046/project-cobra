@@ -1,5 +1,6 @@
 package whs.de.zitat_quiz;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,14 +25,23 @@ public class DatabaseUtils {
     static List<Question> televisionQuestions;
     static List<Answer> televisionAnswers;
 
+    static List<Question> questionList;
+    static List<Answer> answerList;
+
     static String pullQuestionText(int index) {
         switch (currentCategory) {
-            case 0: return movieQuestions.get(index).getValue();
-            case 1: return politicsQuestions.get(index).getValue();
-            case 2: return scienceQuestions.get(index).getValue();
-            case 3: return sportsQuestions.get(index).getValue();
-            case 4: return televisionQuestions.get(index).getValue();
-            default:return "";
+            case 0:
+                return movieQuestions.get(index).getValue();
+            case 1:
+                return politicsQuestions.get(index).getValue();
+            case 2:
+                return scienceQuestions.get(index).getValue();
+            case 3:
+                return sportsQuestions.get(index).getValue();
+            case 4:
+                return televisionQuestions.get(index).getValue();
+            default:
+                return "";
         }
     }
 
@@ -41,7 +51,7 @@ public class DatabaseUtils {
 
         currentCategory = 0;
 
-        addQuestion(movieQuestions, movieAnswers,"I'll be back", CATEGORY_MOVIES, "Terminator");
+        addQuestion(movieQuestions, movieAnswers, "I'll be back", CATEGORY_MOVIES, "Terminator");
         addQuestion(movieQuestions, movieAnswers, "Autobots, transformiert euch!", CATEGORY_MOVIES, "Transformers");
 
 
