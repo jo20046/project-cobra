@@ -22,6 +22,7 @@ public class CategoryActivity extends AppCompatActivity {
         btnCategoryMovies.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DatabaseUtils.initMovie();
                 Intent intent = new Intent(getApplicationContext(), QuizActivity.class);
                 startActivity(intent);
             }
@@ -30,6 +31,7 @@ public class CategoryActivity extends AppCompatActivity {
         btnCategoryPolitics.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DatabaseUtils.initPolitics();
                 Intent intent = new Intent(getApplicationContext(), QuizActivity.class);
                 startActivity(intent);
             }
@@ -38,6 +40,7 @@ public class CategoryActivity extends AppCompatActivity {
         btnCategoryScience.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DatabaseUtils.initScience();
                 Intent intent = new Intent(getApplicationContext(), QuizActivity.class);
                 startActivity(intent);
             }
@@ -46,6 +49,7 @@ public class CategoryActivity extends AppCompatActivity {
         btnCategorySports.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DatabaseUtils.initSports();
                 Intent intent = new Intent(getApplicationContext(), QuizActivity.class);
                 startActivity(intent);
             }
@@ -54,6 +58,7 @@ public class CategoryActivity extends AppCompatActivity {
         btnCategoryTelevision.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DatabaseUtils.initTelevision();
                 Intent intent = new Intent(getApplicationContext(), QuizActivity.class);
                 startActivity(intent);
             }
