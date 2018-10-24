@@ -1,4 +1,20 @@
 <resources>
+
+    <!-- General -->
     <string name="app_name">zitat-quiz</string>
+
+    <!-- MainActivity -->
     <string name="btnCategoryActivity">Start</string>
+
+    <!-- CategoryActivity -->
+    <string name="txtCategoryHeadline">Wählen Sie eine Kategorie:</string>
+    <string name="btnCategoryMovies">Film</string>
+    <string name="btnCategoryPolitics">Politik</string>
+    <string name="btnCategoryScience">Wissenschaft</string>
+    <string name="btnCategorySports">Sport</string>
+    <string name="btnCategoryTelevision">Fernsehen</string>
+
+    <!-- QuizActivity -->
+    <string name="btnNextQuestion">Weiter</string>
+
 </resources>
