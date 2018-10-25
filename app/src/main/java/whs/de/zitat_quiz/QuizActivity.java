@@ -18,6 +18,10 @@ import java.util.List;
 
 public class QuizActivity extends AppCompatActivity {
 
+    private final int POSSIBLE_ANSWERS = 4; // number of answers for the user to choose from
+    private int NUMBER_OF_ANSWERS; // number of answers in this category
+    private int CORRECT_ANSWER; // index of the current answer for the current question
+    private int CHOSEN_ANSWER; // index of the answer chosen by user (checked radio button)
     private List<Question> questionList;
     private List<Answer> answerList;
     private int currentQuestion = 0;
@@ -36,10 +40,18 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
-                    case R.id.rdBtnAnswer1:break;
-                    case R.id.rdBtnAnswer2:break;
-                    case R.id.rdBtnAnswer3:break;
-                    case R.id.rdBtnAnswer4:break;
+                    case R.id.rdBtnAnswer1:
+                        CHOSEN_ANSWER = 0;
+                        break;
+                    case R.id.rdBtnAnswer2:
+                        CHOSEN_ANSWER = 1;
+                        break;
+                    case R.id.rdBtnAnswer3:
+                        CHOSEN_ANSWER = 2;
+                        break;
+                    case R.id.rdBtnAnswer4:
+                        CHOSEN_ANSWER = 3;
+                        break;
                 }
             }
         });
@@ -72,15 +84,51 @@ public class QuizActivity extends AppCompatActivity {
         RadioButton answer4 = findViewById(R.id.rdBtnAnswer4);
 
         Question question = questionList.get(currentQuestion);
-        String questionText = (currentQuestion + 1) + "/" + questionList.size() + ": " + question.getValue();
-        txtQuestion.setText(questionText);
+        txtQuestion.setText(question.getValue());
 
-        answer1.setText(question.getCorrectAnswer().getValue());
-        answer2.setText(question.getCorrectAnswer().getValue());
-        answer3.setText(question.getCorrectAnswer().getValue());
-        answer4.setText(question.getCorrectAnswer().getValue());
+        ArrayList<Answer> answersToChooseFrom = new ArrayList<>();
+        ensureSize(answersToChooseFrom, POSSIBLE_ANSWERS);
+        CORRECT_ANSWER = (int) (Math.random() * 4);
+        answersToChooseFrom.add(CORRECT_ANSWER, question.getCorrectAnswer());
+
+        for (int i = 0; i < 4; i++) {
+            if (answersToChooseFrom.get(i) != null) {
+                continue;
+            }
+            Answer newAnswer = answerList.get((int) (Math.random() * NUMBER_OF_ANSWERS));
+            if (duplicateAnswers(answersToChooseFrom, newAnswer)) {
+                i--;
+                continue;
+            }
+            answersToChooseFrom.set(i, newAnswer);
+        }
+
+        answer1.setText(answersToChooseFrom.get(0).getValue());
+        answer2.setText(answersToChooseFrom.get(1).getValue());
+        answer3.setText(answersToChooseFrom.get(2).getValue());
+        answer4.setText(answersToChooseFrom.get(3).getValue());
 
         currentQuestion++;
+    }
+
+    // ensure that a given list contains at least a certain amount (size) of elements
+    private void ensureSize(ArrayList<?> list, int size) {
+        list.ensureCapacity(size);
+        while (list.size() < size) {
+            list.add(null);
+        }
+    }
+
+    private boolean duplicateAnswers(ArrayList<Answer> list, Answer answer) {
+        for (Answer entry : list) {
+            if (entry == null) {
+                continue;
+            }
+            if (entry.getValue().equals(answer.getValue())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void initDB() {
@@ -122,6 +170,7 @@ public class QuizActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        NUMBER_OF_ANSWERS = answerList.size();
     }
 
 }
