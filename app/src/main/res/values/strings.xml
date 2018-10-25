@@ -16,5 +16,7 @@
 
     <!-- QuizActivity -->
     <string name="btnNextQuestion">Weiter</string>
+    <string name="txtDefaultQuestionText">Question</string>
+    <string name="txtDefaultAnswerText">Answer</string>
 
 </resources>
