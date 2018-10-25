@@ -22,7 +22,7 @@
         <TextView
             android:id="@+id/txtQuestion"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
@@ -30,7 +30,7 @@
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
             android:text="@string/txtDefaultQuestionText"
-            android:textSize="@dimen/dmnHeadline"
+            android:textSize="@dimen/textSizeLarge"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -41,8 +41,8 @@
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
+        android:layout_height="0dp"
+        android:gravity="center_vertical|center_horizontal"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
         app:layout_constraintEnd_toEndOf="parent"
@@ -65,34 +65,35 @@
 
             <RadioButton
                 android:id="@+id/rdBtnAnswer1"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/txtDefaultAnswerText"
-                android:textSize="@dimen/dmnAnswertext" />
+                android:textSize="@dimen/textSizeMedium" />
 
             <RadioButton
                 android:id="@+id/rdBtnAnswer2"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/txtDefaultAnswerText"
-                android:textSize="@dimen/dmnAnswertext" />
+                android:textSize="@dimen/textSizeMedium" />
 
             <RadioButton
                 android:id="@+id/rdBtnAnswer3"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/txtDefaultAnswerText"
-                android:textSize="@dimen/dmnAnswertext" />
+                android:textSize="@dimen/textSizeMedium" />
 
             <RadioButton
                 android:id="@+id/rdBtnAnswer4"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/txtDefaultAnswerText"
-                android:textSize="@dimen/dmnAnswertext"
+                android:textSize="@dimen/textSizeMedium"
                 tools:layout_editor_absoluteX="148dp"
                 tools:layout_editor_absoluteY="294dp" />
         </RadioGroup>
@@ -123,6 +124,7 @@
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
             android:text="@string/btnNextQuestion"
+            android:textSize="@dimen/textSizeMedium"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
