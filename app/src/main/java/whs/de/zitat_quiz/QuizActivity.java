@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -25,35 +27,59 @@ public class QuizActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
-        final TextView txtQuestion = findViewById(R.id.txtQuestion);
-        final TextView txtAnswer = findViewById(R.id.txtAnswer);
+        final RadioGroup rdGrAnswers = findViewById(R.id.rdGrAnswers);
         Button btnNextQuestion = findViewById(R.id.btnNextQuestion);
 
 
-        initDB();
-        displayQuestion(txtQuestion, txtAnswer);
-
+        // < - - Listeners Start - - >
+        rdGrAnswers.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.rdBtnAnswer1:break;
+                    case R.id.rdBtnAnswer2:break;
+                    case R.id.rdBtnAnswer3:break;
+                    case R.id.rdBtnAnswer4:break;
+                }
+            }
+        });
 
         btnNextQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                rdGrAnswers.clearCheck();
                 if (currentQuestion < questionList.size()) {
-                    displayQuestion(txtQuestion, txtAnswer);
+                    displayQuestion();
                 } else {
                     Intent intent = new Intent(getApplicationContext(), CategoryActivity.class);
                     startActivity(intent);
                 }
             }
         });
+        // < - - Listeners End - - >
 
+        initDB();
+        displayQuestion();
 
     }
 
-    private void displayQuestion(TextView txtQuestion, TextView txtAnswer) {
+    private void displayQuestion() {
+
+        TextView txtQuestion = findViewById(R.id.txtQuestion);
+        RadioButton answer1 = findViewById(R.id.rdBtnAnswer1);
+        RadioButton answer2 = findViewById(R.id.rdBtnAnswer2);
+        RadioButton answer3 = findViewById(R.id.rdBtnAnswer3);
+        RadioButton answer4 = findViewById(R.id.rdBtnAnswer4);
+
         Question question = questionList.get(currentQuestion);
         String questionText = (currentQuestion + 1) + "/" + questionList.size() + ": " + question.getValue();
         txtQuestion.setText(questionText);
-        txtAnswer.setText(question.getCorrectAnswer().getValue());
+
+        answer1.setText(question.getCorrectAnswer().getValue());
+        answer2.setText(question.getCorrectAnswer().getValue());
+        answer3.setText(question.getCorrectAnswer().getValue());
+        answer4.setText(question.getCorrectAnswer().getValue());
+
         currentQuestion++;
     }
 
