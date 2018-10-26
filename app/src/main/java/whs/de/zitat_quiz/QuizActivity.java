@@ -19,10 +19,13 @@ import java.util.List;
 public class QuizActivity extends AppCompatActivity {
 
     private final int POSSIBLE_ANSWERS = 4; // number of answers for the user to choose from
+    private int QUESTIONS_PER_GAME = 10; // number of questions per game
+    private int NUMBER_OF_QUESTIONS; // number of questions in this category
     private int NUMBER_OF_ANSWERS; // number of answers in this category
     private int CORRECT_ANSWER; // index of the current answer for the current question
     private int CHOSEN_ANSWER; // index of the answer chosen by user (checked radio button)
     private List<Question> questionList;
+    private List<Question> usedQuestions = new ArrayList<>();
     private List<Answer> answerList;
     private int currentQuestion = 0;
 
@@ -60,7 +63,7 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 rdGrAnswers.clearCheck();
-                if (currentQuestion < questionList.size()) {
+                if (currentQuestion < QUESTIONS_PER_GAME) {
                     displayQuestion();
                 } else {
                     Intent intent = new Intent(getApplicationContext(), CategoryActivity.class);
@@ -83,7 +86,10 @@ public class QuizActivity extends AppCompatActivity {
         RadioButton answer3 = findViewById(R.id.rdBtnAnswer3);
         RadioButton answer4 = findViewById(R.id.rdBtnAnswer4);
 
-        Question question = questionList.get(currentQuestion);
+        int rnd = (int) (Math.random() * NUMBER_OF_QUESTIONS);
+        Question question = questionList.get(rnd);
+        questionList.remove(rnd);
+        NUMBER_OF_QUESTIONS--;
         txtQuestion.setText(question.getValue());
 
         ArrayList<Answer> answersToChooseFrom = new ArrayList<>();
@@ -170,6 +176,8 @@ public class QuizActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        NUMBER_OF_QUESTIONS = questionList.size();
         NUMBER_OF_ANSWERS = answerList.size();
     }
 
