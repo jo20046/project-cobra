@@ -137,7 +137,7 @@ public class QuizActivity extends AppCompatActivity {
         answerList = new ArrayList<>();
 
         InputStream is;
-        switch (DatabaseUtils.currentCategory) {
+        switch (Utils.currentCategory) {
             case 0:
                 is = getResources().openRawResource(R.raw.filme);
                 break;
