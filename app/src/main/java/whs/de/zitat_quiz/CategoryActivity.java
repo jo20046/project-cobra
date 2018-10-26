@@ -22,46 +22,46 @@ public class CategoryActivity extends AppCompatActivity {
         btnCategoryMovies.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseUtils.initMovie();
-                Intent intent = new Intent(getApplicationContext(), QuizActivity.class);
-                startActivity(intent);
+                Utils.currentCategory = Utils.CATEGORY_MOVIES;
+                startQuizActivity();
             }
         });
 
         btnCategoryPolitics.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseUtils.initPolitics();
-                Intent intent = new Intent(getApplicationContext(), QuizActivity.class);
-                startActivity(intent);
+                Utils.currentCategory = Utils.CATEGORY_POLITICS;
+                startQuizActivity();
             }
         });
 
         btnCategoryScience.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseUtils.initScience();
-                Intent intent = new Intent(getApplicationContext(), QuizActivity.class);
-                startActivity(intent);
+                Utils.currentCategory = Utils.CATEGORY_SCIENCE;
+                startQuizActivity();
             }
         });
 
         btnCategorySports.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseUtils.initSports();
-                Intent intent = new Intent(getApplicationContext(), QuizActivity.class);
-                startActivity(intent);
+                Utils.currentCategory = Utils.CATEGORY_SPORTS;
+                startQuizActivity();
             }
         });
 
         btnCategoryTelevision.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseUtils.initTelevision();
-                Intent intent = new Intent(getApplicationContext(), QuizActivity.class);
-                startActivity(intent);
+                Utils.currentCategory = Utils.CATEGORY_TELEVISION;
+                startQuizActivity();
             }
         });
+    }
+
+    private void startQuizActivity(){
+        Intent intent = new Intent(getApplicationContext(), QuizActivity.class);
+        startActivity(intent);
     }
 }
