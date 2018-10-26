@@ -30,6 +30,11 @@ public class QuizActivity extends AppCompatActivity {
     private int currentQuestion = 0;
 
     @Override
+    public void onBackPressed(){
+
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
