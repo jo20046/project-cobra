@@ -23,7 +23,7 @@ public class QuizActivity extends AppCompatActivity {
     private int NUMBER_OF_QUESTIONS; // number of questions in this category
     private int NUMBER_OF_ANSWERS; // number of answers in this category
     private int CORRECT_ANSWER; // index of the current answer for the current question
-    private int CHOSEN_ANSWER; // index of the answer chosen by user (checked radio button)
+    private int CHOSEN_ANSWER = -1; // index of the answer chosen by user (checked radio button)
     private List<Question> questionList;
     private List<Question> usedQuestions = new ArrayList<>();
     private List<Answer> answerList;
@@ -62,11 +62,15 @@ public class QuizActivity extends AppCompatActivity {
         btnNextQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (CORRECT_ANSWER == CHOSEN_ANSWER) {
+                    Utils.USER_SCORE++;
+                }
                 rdGrAnswers.clearCheck();
+                CHOSEN_ANSWER = -1;
                 if (currentQuestion < QUESTIONS_PER_GAME) {
                     displayQuestion();
                 } else {
-                    Intent intent = new Intent(getApplicationContext(), CategoryActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
                     startActivity(intent);
                 }
             }
@@ -75,7 +79,7 @@ public class QuizActivity extends AppCompatActivity {
 
         initDB();
         displayQuestion();
-
+        Utils.USER_SCORE = 0;
     }
 
     private void displayQuestion() {

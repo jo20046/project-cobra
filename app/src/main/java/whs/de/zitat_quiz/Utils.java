@@ -11,4 +11,6 @@ public class Utils {
 
     static int currentCategory;
 
+    static int USER_SCORE;
+
 }

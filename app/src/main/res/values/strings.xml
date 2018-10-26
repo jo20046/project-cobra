@@ -19,4 +19,8 @@
     <string name="txtDefaultQuestionText">Question</string>
     <string name="txtDefaultAnswerText">Answer</string>
 
+    <!-- ResultActivity -->
+    <string name="txtResult">Result</string>
+    <string name="btnReturnToCategories">Zurück zur Kategorieauswahl</string>
+
 </resources>
