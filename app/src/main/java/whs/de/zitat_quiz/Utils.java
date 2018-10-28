@@ -8,6 +8,7 @@ public class Utils {
     static final int CATEGORY_SCIENCE = 2;
     static final int CATEGORY_SPORTS = 3;
     static final int CATEGORY_TELEVISION = 4;
+    static final int CATEGORY_EVERYTHING = 5;
 
     static int currentCategory;
 

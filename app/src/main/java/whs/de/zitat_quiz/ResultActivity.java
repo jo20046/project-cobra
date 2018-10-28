@@ -22,8 +22,17 @@ public class ResultActivity extends AppCompatActivity {
         TextView txtResult = findViewById(R.id.txtResult);
         Button btnReturnToCategories = findViewById(R.id.btnReturnToCategories);
 
-        String resultText = Utils.USER_SCORE + "/10 Fragen richtig beantwortet";
-        txtResult.setText(resultText);
+        String resultText ="";
+
+        if(Utils.currentCategory < 5){
+            resultText = Utils.USER_SCORE + "/10 Fragen richtig beantwortet";
+            txtResult.setText(resultText);
+        } else {
+            resultText = "Glückwunsch du hast " + Utils.USER_SCORE + " Fragen richtig beantwortet!";
+            txtResult.setText(resultText);
+        }
+
+
 
         btnReturnToCategories.setOnClickListener(new View.OnClickListener() {
             @Override
