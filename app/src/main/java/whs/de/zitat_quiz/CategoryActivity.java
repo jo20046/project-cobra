@@ -9,6 +9,11 @@ import android.widget.Button;
 public class CategoryActivity extends AppCompatActivity {
 
     @Override
+    public void onBackPressed(){
+
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
@@ -18,50 +23,60 @@ public class CategoryActivity extends AppCompatActivity {
         Button btnCategoryScience = findViewById(R.id.btnCategoryScience);
         Button btnCategorySports = findViewById(R.id.btnCategorySports);
         Button btnCategoryTelevision = findViewById(R.id.btnCategoryTelevision);
+        Button btnCategoryEverything = findViewById(R.id.btnEverything);
 
         btnCategoryMovies.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseUtils.initMovie();
-                Intent intent = new Intent(getApplicationContext(), QuizActivity.class);
-                startActivity(intent);
+                Utils.currentCategory = Utils.CATEGORY_MOVIES;
+                startQuizActivity();
             }
         });
 
         btnCategoryPolitics.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseUtils.initPolitics();
-                Intent intent = new Intent(getApplicationContext(), QuizActivity.class);
-                startActivity(intent);
+                Utils.currentCategory = Utils.CATEGORY_POLITICS;
+                startQuizActivity();
             }
         });
 
         btnCategoryScience.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseUtils.initScience();
-                Intent intent = new Intent(getApplicationContext(), QuizActivity.class);
-                startActivity(intent);
+                Utils.currentCategory = Utils.CATEGORY_SCIENCE;
+                startQuizActivity();
             }
         });
 
         btnCategorySports.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseUtils.initSports();
-                Intent intent = new Intent(getApplicationContext(), QuizActivity.class);
-                startActivity(intent);
+                Utils.currentCategory = Utils.CATEGORY_SPORTS;
+                startQuizActivity();
             }
         });
 
         btnCategoryTelevision.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseUtils.initTelevision();
-                Intent intent = new Intent(getApplicationContext(), QuizActivity.class);
-                startActivity(intent);
+                Utils.currentCategory = Utils.CATEGORY_TELEVISION;
+                startQuizActivity();
             }
         });
+
+        btnCategoryEverything.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utils.currentCategory = Utils.CATEGORY_EVERYTHING;
+                startQuizActivity();
+            }
+        });
+
+    }
+
+    private void startQuizActivity(){
+        Intent intent = new Intent(getApplicationContext(), QuizActivity.class);
+        startActivity(intent);
     }
 }
