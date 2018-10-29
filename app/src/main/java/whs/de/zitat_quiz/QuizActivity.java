@@ -40,13 +40,14 @@ public class QuizActivity extends AppCompatActivity {
         setContentView(R.layout.activity_quiz);
 
         final RadioGroup rdGrAnswers = findViewById(R.id.rdGrAnswers);
-        Button btnNextQuestion = findViewById(R.id.btnNextQuestion);
+        final Button btnNextQuestion = findViewById(R.id.btnNextQuestion);
 
 
         // < - - Listeners Start - - >
         rdGrAnswers.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
+                btnNextQuestion.setEnabled(true);
                 switch (checkedId) {
                     case R.id.rdBtnAnswer1:
                         CHOSEN_ANSWER = 0;
@@ -85,6 +86,8 @@ public class QuizActivity extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
                     startActivity(intent);
                 }
+
+                btnNextQuestion.setEnabled(false);
             }
         });
         // < - - Listeners End - - >
