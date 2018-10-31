@@ -1,8 +1,8 @@
 package whs.de.zitat_quiz;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -30,7 +30,7 @@ public class QuizActivity extends AppCompatActivity {
     private int currentQuestion = 0;
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
 
     }
 
@@ -68,14 +68,17 @@ public class QuizActivity extends AppCompatActivity {
         btnNextQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Button button = (Button) v;
+
                 if (CORRECT_ANSWER == CHOSEN_ANSWER) {
                     Utils.USER_SCORE++;
                 }
 
-                if(CORRECT_ANSWER != CHOSEN_ANSWER && Utils.currentCategory == 5){
-                        Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
-                        startActivity(intent);
-                        return;
+                if (CORRECT_ANSWER != CHOSEN_ANSWER && Utils.currentCategory == 5) {
+                    Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+                    startActivity(intent);
+                    return;
                 }
 
                 rdGrAnswers.clearCheck();
@@ -87,9 +90,10 @@ public class QuizActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
 
-                btnNextQuestion.setEnabled(false);
+                button.setEnabled(false);
             }
         });
+
         // < - - Listeners End - - >
 
         initDB();
@@ -154,6 +158,14 @@ public class QuizActivity extends AppCompatActivity {
             }
         }
         return false;
+    }
+
+    private void sleep(long millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private void initDB() {
