@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -41,6 +42,7 @@ public class QuizActivity extends AppCompatActivity {
 
         final RadioGroup rdGrAnswers = findViewById(R.id.rdGrAnswers);
         final Button btnNextQuestion = findViewById(R.id.btnNextQuestion);
+        final ProgressBar progressBar = findViewById(R.id.progressBar);
 
 
         // < - - Listeners Start - - >
@@ -74,6 +76,8 @@ public class QuizActivity extends AppCompatActivity {
                 if (CORRECT_ANSWER == CHOSEN_ANSWER) {
                     Utils.USER_SCORE++;
                 }
+
+                progressBar.setProgress(currentQuestion);
 
                 if (CORRECT_ANSWER != CHOSEN_ANSWER && Utils.currentCategory == 5) {
                     Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
