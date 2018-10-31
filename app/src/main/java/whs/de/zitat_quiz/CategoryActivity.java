@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 public class CategoryActivity extends AppCompatActivity {
 
-    boolean doubleBackToExitPressedOnce = false;
+    private boolean doubleBackToExitPressedOnce = false;
 
     @Override
     public void onBackPressed() {
