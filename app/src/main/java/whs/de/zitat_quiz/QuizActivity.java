@@ -72,12 +72,6 @@ public class QuizActivity extends AppCompatActivity {
                     Utils.USER_SCORE++;
                 }
 
-                if(CORRECT_ANSWER != CHOSEN_ANSWER && Utils.currentCategory == 5){
-                        Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
-                        startActivity(intent);
-                        return;
-                }
-
                 rdGrAnswers.clearCheck();
                 CHOSEN_ANSWER = -1;
                 if (currentQuestion < QUESTIONS_PER_GAME) {
@@ -174,9 +168,6 @@ public class QuizActivity extends AppCompatActivity {
                 break;
             case 3:
                 is = getResources().openRawResource(R.raw.sport);
-                break;
-            case 5:
-                is = getResources().openRawResource(R.raw.everything);
                 break;
             default: // uses "serien.csv" as default so that InputStream is initialized in any case, could be better but works for testing
                 is = getResources().openRawResource(R.raw.serien);

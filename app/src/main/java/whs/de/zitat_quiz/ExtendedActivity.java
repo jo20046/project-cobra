@@ -70,15 +70,14 @@ public class ExtendedActivity extends AppCompatActivity {
         btnNextQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (CORRECT_ANSWER == CHOSEN_ANSWER) {
-                    Utils.USER_SCORE++;
-                }
 
                 if(CORRECT_ANSWER != CHOSEN_ANSWER && Utils.currentCategory == 5){
                     Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
                     startActivity(intent);
                     return;
                 }
+
+                Utils.USER_SCORE++;
 
                 rdGrAnswers.clearCheck();
                 CHOSEN_ANSWER = -1;
@@ -175,10 +174,6 @@ public class ExtendedActivity extends AppCompatActivity {
         answer4.setText(answersToChooseFrom.get(3).getValue());
 
         currentQuestion++;
-    }
-
-    private int rndNumber(int limit){
-        return (int)(Math.random()*limit);
     }
 
     // ensure that a given list contains at least a certain amount (size) of elements
