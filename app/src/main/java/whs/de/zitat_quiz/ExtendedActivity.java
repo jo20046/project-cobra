@@ -1,6 +1,7 @@
 package whs.de.zitat_quiz;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.renderscript.ScriptGroup;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -30,9 +32,24 @@ public class ExtendedActivity extends AppCompatActivity {
     private List<Answer> answerList;
     private int currentQuestion = 0;
 
-    @Override
-    public void onBackPressed(){
+    private boolean doubleBackToExitPressedOnce = false;
 
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            Intent intent = new Intent(getApplicationContext(), CategoryActivity.class);
+            startActivity(intent);
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Wenn du die aktuelle Quiz-Runde beenden möchtest, drücke noch einmal auf die Zurück-Taste", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
     }
 
     @Override
