@@ -73,6 +73,10 @@ public class CategoryActivity extends Activity {
                         Utils.currentCategory = Utils.CATEGORY_EVERYTHING;
                         startExtendedActivity();
                         break;
+                    case 6:
+                        Utils.currentCategory = Utils.CATEGORY_EVERYTHING;
+                        startTimeActivity();
+                        break;
 
                 }
             }
@@ -87,6 +91,10 @@ public class CategoryActivity extends Activity {
     private void startExtendedActivity() {
         Intent intent = new Intent(getApplicationContext(), ExtendedActivity.class);
         startActivity(intent);
+    }
 
+    private void startTimeActivity() {
+        Intent intent = new Intent(getApplicationContext(), TimeActivity.class);
+        startActivity(intent);
     }
 }
