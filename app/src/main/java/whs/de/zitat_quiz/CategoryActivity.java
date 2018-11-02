@@ -43,7 +43,6 @@ public class CategoryActivity extends Activity {
         String[] strings = {"Filme", "Politik", "Serien", "Sport", "Wissenschaft", "Alle Kategorien", "Zeitmodus"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.list_item_category, strings);
         listView.setAdapter(adapter);
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
@@ -72,10 +71,6 @@ public class CategoryActivity extends Activity {
                     case 5:
                         Utils.currentCategory = Utils.CATEGORY_EVERYTHING;
                         startExtendedActivity();
-                        break;
-                    case 6:
-                        Utils.currentCategory = Utils.CATEGORY_EVERYTHING;
-                        startTimeActivity();
                         break;
 
                 }
