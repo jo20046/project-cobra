@@ -1,14 +1,16 @@
 package whs.de.zitat_quiz;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
-import android.widget.Button;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
-public class CategoryActivity extends AppCompatActivity {
+public class CategoryActivity extends Activity {
 
     private boolean doubleBackToExitPressedOnce = false;
 
@@ -37,61 +39,44 @@ public class CategoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
 
-        Button btnCategoryMovies = findViewById(R.id.btnCategoryMovies);
-        Button btnCategoryPolitics = findViewById(R.id.btnCategoryPolitics);
-        Button btnCategoryScience = findViewById(R.id.btnCategoryScience);
-        Button btnCategorySports = findViewById(R.id.btnCategorySports);
-        Button btnCategoryTelevision = findViewById(R.id.btnCategoryTelevision);
-        Button btnCategoryEverything = findViewById(R.id.btnEverything);
+        ListView listView = findViewById(R.id.listViewCategory);
+        String[] strings = {"Filme", "Politik", "Serien", "Sport", "Wissenschaft", "Alle Kategorien", "Zeitmodus"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.list_item_category, strings);
+        listView.setAdapter(adapter);
 
-        btnCategoryMovies.setOnClickListener(new View.OnClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-                Utils.currentCategory = Utils.CATEGORY_MOVIES;
-                startQuizActivity();
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                switch (position) {
+                    case 0:
+                        Utils.currentCategory = Utils.CATEGORY_MOVIES;
+                        startQuizActivity();
+                        break;
+                    case 1:
+                        Utils.currentCategory = Utils.CATEGORY_POLITICS;
+                        startQuizActivity();
+                        break;
+                    case 2:
+                        Utils.currentCategory = Utils.CATEGORY_TELEVISION;
+                        startQuizActivity();
+                        break;
+                    case 3:
+                        Utils.currentCategory = Utils.CATEGORY_SPORTS;
+                        startQuizActivity();
+                        break;
+                    case 4:
+                        Utils.currentCategory = Utils.CATEGORY_SCIENCE;
+                        startQuizActivity();
+                        break;
+                    case 5:
+                        Utils.currentCategory = Utils.CATEGORY_EVERYTHING;
+                        startExtendedActivity();
+                        break;
+
+                }
             }
         });
-
-        btnCategoryPolitics.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Utils.currentCategory = Utils.CATEGORY_POLITICS;
-                startQuizActivity();
-            }
-        });
-
-        btnCategoryScience.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Utils.currentCategory = Utils.CATEGORY_SCIENCE;
-                startQuizActivity();
-            }
-        });
-
-        btnCategorySports.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Utils.currentCategory = Utils.CATEGORY_SPORTS;
-                startQuizActivity();
-            }
-        });
-
-        btnCategoryTelevision.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Utils.currentCategory = Utils.CATEGORY_TELEVISION;
-                startQuizActivity();
-            }
-        });
-
-        btnCategoryEverything.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Utils.currentCategory = Utils.CATEGORY_EVERYTHING;
-                startExtendedActivity();
-            }
-        });
-
     }
 
     private void startQuizActivity() {
@@ -99,8 +84,9 @@ public class CategoryActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void startExtendedActivity(){
-        Intent intent = new Intent (getApplicationContext(), ExtendedActivity.class);
+    private void startExtendedActivity() {
+        Intent intent = new Intent(getApplicationContext(), ExtendedActivity.class);
         startActivity(intent);
+
     }
 }
