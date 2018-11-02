@@ -13,6 +13,8 @@
     <string name="btnCategoryScience">Wissenschaft</string>
     <string name="btnCategorySports">Sport</string>
     <string name="btnCategoryTelevision">Fernsehen</string>
+    <string name="btnCategoryTime">Zeitmodus</string>
+    <string name="btnCategoryEverything">Alle Kategorien</string>
 
     <!-- QuizActivity -->
     <string name="btnNextQuestion">Weiter</string>

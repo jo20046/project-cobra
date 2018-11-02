@@ -9,6 +9,7 @@ public class Utils {
     static final int CATEGORY_SPORTS = 3;
     static final int CATEGORY_TELEVISION = 4;
     static final int CATEGORY_EVERYTHING = 5;
+    static final int CATEGORY_TIME = 6;
 
     static int currentCategory;
 

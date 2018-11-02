@@ -25,7 +25,8 @@
             android:name=".QuizActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".ResultActivity" />
-        <activity android:name=".ExtendedActivity"></activity>
+        <activity android:name=".ExtendedActivity" />
+        <activity android:name=".TimeActivity" />
     </application>
 
 </manifest>

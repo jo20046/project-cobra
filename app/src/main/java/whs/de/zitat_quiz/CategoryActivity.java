@@ -39,11 +39,13 @@ public class CategoryActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
 
+
         ListView listView = findViewById(R.id.listViewCategory);
         String[] strings = {"Filme", "Politik", "Serien", "Sport", "Wissenschaft", "Alle Kategorien", "Zeitmodus"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.list_item_category, strings);
         listView.setAdapter(adapter);
 
+        
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
@@ -88,5 +90,10 @@ public class CategoryActivity extends Activity {
         Intent intent = new Intent(getApplicationContext(), ExtendedActivity.class);
         startActivity(intent);
 
+    }
+
+    private void startTimeActivty(){
+        Intent intent = new Intent (getApplicationContext(),TimeActivity.class);
+        startActivity(intent);
     }
 }
