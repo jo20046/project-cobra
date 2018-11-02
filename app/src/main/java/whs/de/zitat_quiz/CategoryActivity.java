@@ -43,6 +43,7 @@ public class CategoryActivity extends AppCompatActivity {
         Button btnCategorySports = findViewById(R.id.btnCategorySports);
         Button btnCategoryTelevision = findViewById(R.id.btnCategoryTelevision);
         Button btnCategoryEverything = findViewById(R.id.btnEverything);
+        Button btnCategoryTime = findViewById(R.id.btnCategoryTime);
 
         btnCategoryMovies.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,6 +93,14 @@ public class CategoryActivity extends AppCompatActivity {
             }
         });
 
+        btnCategoryTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utils.currentCategory = Utils.CATEGORY_EVERYTHING;
+                startTimeActivty();
+            }
+        });
+
     }
 
     private void startQuizActivity() {
@@ -101,6 +110,11 @@ public class CategoryActivity extends AppCompatActivity {
 
     private void startExtendedActivity(){
         Intent intent = new Intent (getApplicationContext(), ExtendedActivity.class);
+        startActivity(intent);
+    }
+
+    private void startTimeActivty(){
+        Intent intent = new Intent (getApplicationContext(),TimeActivity.class);
         startActivity(intent);
     }
 }
