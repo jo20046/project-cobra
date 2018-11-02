@@ -69,7 +69,7 @@ public class CategoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Utils.currentCategory = Utils.CATEGORY_EVERYTHING;
-                startQuizActivity();
+                startExtendedActivity();
             }
         });
 
@@ -77,6 +77,11 @@ public class CategoryActivity extends AppCompatActivity {
 
     private void startQuizActivity(){
         Intent intent = new Intent(getApplicationContext(), QuizActivity.class);
+        startActivity(intent);
+    }
+
+    private void startExtendedActivity(){
+        Intent intent = new Intent (getApplicationContext(), ExtendedActivity.class);
         startActivity(intent);
     }
 }

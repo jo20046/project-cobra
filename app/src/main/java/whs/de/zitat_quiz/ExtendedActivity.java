@@ -1,6 +1,7 @@
 package whs.de.zitat_quiz;
 
 import android.content.Intent;
+import android.renderscript.ScriptGroup;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -16,16 +17,16 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuizActivity extends AppCompatActivity {
+public class ExtendedActivity extends AppCompatActivity {
+
 
     private final int POSSIBLE_ANSWERS = 4; // number of answers for the user to choose from
-    private int QUESTIONS_PER_GAME = 10; // number of questions per game
+    private int QUESTIONS_PER_GAME; // number of questions per game
     private int NUMBER_OF_QUESTIONS; // number of questions in this category
     private int NUMBER_OF_ANSWERS; // number of answers in this category
     private int CORRECT_ANSWER; // index of the current answer for the current question
     private int CHOSEN_ANSWER = -1; // index of the answer chosen by user (checked radio button)
     private List<Question> questionList;
-    private List<Question> usedQuestions = new ArrayList<>();
     private List<Answer> answerList;
     private int currentQuestion = 0;
 
@@ -37,10 +38,11 @@ public class QuizActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_quiz);
+        setContentView(R.layout.activity_extended);
 
         final RadioGroup rdGrAnswers = findViewById(R.id.rdGrAnswers);
         final Button btnNextQuestion = findViewById(R.id.btnNextQuestion);
+
 
 
         // < - - Listeners Start - - >
@@ -68,9 +70,14 @@ public class QuizActivity extends AppCompatActivity {
         btnNextQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (CORRECT_ANSWER == CHOSEN_ANSWER) {
-                    Utils.USER_SCORE++;
+
+                if(CORRECT_ANSWER != CHOSEN_ANSWER && Utils.currentCategory == 5){
+                    Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+                    startActivity(intent);
+                    return;
                 }
+
+                Utils.USER_SCORE++;
 
                 rdGrAnswers.clearCheck();
                 CHOSEN_ANSWER = -1;
@@ -89,6 +96,40 @@ public class QuizActivity extends AppCompatActivity {
         initDB();
         displayQuestion();
         Utils.USER_SCORE = 0;
+    }
+
+    private void initDB() {
+
+        questionList = new ArrayList<>();
+        answerList = new ArrayList<>();
+
+        InputStream is = getResources().openRawResource(R.raw.everything);
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+
+        String line;
+
+        String[] result;
+
+        try {
+            while ((line = reader.readLine()) != null) {
+                if (Character.isDigit(line.charAt(0))) {
+
+                    result = line.split(";");
+
+                    Answer a = new Answer(result[2],result[3]);
+                    Question q = new Question(result[1],result[3], a.getValue());
+                    answerList.add(a);
+                    questionList.add(q);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        NUMBER_OF_QUESTIONS = questionList.size();
+        NUMBER_OF_ANSWERS = answerList.size();
+        QUESTIONS_PER_GAME = NUMBER_OF_QUESTIONS;
     }
 
     private void displayQuestion() {
@@ -116,6 +157,11 @@ public class QuizActivity extends AppCompatActivity {
             }
             Answer newAnswer = answerList.get((int) (Math.random() * NUMBER_OF_ANSWERS));
             if (duplicateAnswers(answersToChooseFrom, newAnswer)) {
+                i--;
+                continue;
+            }
+
+            if(!(newAnswer.getCategory().equals(question.getCategory()))){
                 i--;
                 continue;
             }
@@ -150,48 +196,6 @@ public class QuizActivity extends AppCompatActivity {
         return false;
     }
 
-    private void initDB() {
-
-        questionList = new ArrayList<>();
-        answerList = new ArrayList<>();
-
-        InputStream is;
-        switch (Utils.currentCategory) {
-            case 0:
-                is = getResources().openRawResource(R.raw.filme);
-                break;
-            case 1:
-                is = getResources().openRawResource(R.raw.politik);
-                break;
-            case 2:
-                is = getResources().openRawResource(R.raw.wissenschaft);
-                break;
-            case 3:
-                is = getResources().openRawResource(R.raw.sport);
-                break;
-            default: // uses "serien.csv" as default so that InputStream is initialized in any case, could be better but works for testing
-                is = getResources().openRawResource(R.raw.serien);
-                break;
-        }
-
-        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-
-        String line;
-        try {
-            while ((line = reader.readLine()) != null) {
-                if (Character.isDigit(line.charAt(0))) {
-                    Answer a = new Answer(line.substring(line.lastIndexOf(';') + 1), "category");
-                    Question q = new Question(line.substring(line.indexOf(';') + 1, line.lastIndexOf(';')), "category", a.getValue());
-                    answerList.add(a);
-                    questionList.add(q);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        NUMBER_OF_QUESTIONS = questionList.size();
-        NUMBER_OF_ANSWERS = answerList.size();
-    }
-
 }
+
+
