@@ -22,6 +22,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class TimeActivity extends AppCompatActivity {
 
@@ -36,6 +37,11 @@ public class TimeActivity extends AppCompatActivity {
     private int currentQuestion = 0;
 
     private boolean doubleBackToExitPressedOnce = false;
+
+    private CountDownTimer mCountDownTimer;
+    private long START_TIME_IN_MILLIS = 120000;
+    private boolean mTimerRunning;
+    private long mTimeLeftinMillis = START_TIME_IN_MILLIS;
 
     @Override
     public void onBackPressed() {
@@ -60,13 +66,9 @@ public class TimeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_time);
 
-        ProgressBar pgb;
-        ObjectAnimator animation;
-
         final RadioGroup rdGrAnswers = findViewById(R.id.rdGrAnswers);
         final Button btnNextQuestion = findViewById(R.id.btnNextQuestion);
 
-        pgb = (ProgressBar)findViewById(R.id.progressBar);
 
         // < - - Listeners Start - - >
         rdGrAnswers.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -111,36 +113,9 @@ public class TimeActivity extends AppCompatActivity {
         });
         // < - - Listeners End - - >
 
-
-        animation = ObjectAnimator.ofInt(pgb,"progress",0,120000);
-        animation.setDuration(120000);
-        animation.setInterpolator(new DecelerateInterpolator());
-        animation.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
-                startActivity(intent);
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-
-            }
-        });
-
         initDB();
+        startTimer();
         displayQuestion();
-        animation.start();
         Utils.USER_SCORE = 0;
 
     }
@@ -243,6 +218,30 @@ public class TimeActivity extends AppCompatActivity {
         return false;
     }
 
+    private void startTimer(){
+        mCountDownTimer = new CountDownTimer(mTimeLeftinMillis,1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                mTimeLeftinMillis = millisUntilFinished;
+                updateCountDownText();
+            }
+
+            @Override
+            public void onFinish() {
+                Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+                startActivity(intent);
+            }
+        }.start();
+    }
+
+    private void updateCountDownText() {
+        int minutes = (int) (mTimeLeftinMillis / 1000) / 60;
+        int seconds = (int) (mTimeLeftinMillis / 1000) % 60;
+
+        String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
+
+        setTitle(timeLeftFormatted);
+    }
 
 }
 
