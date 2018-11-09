@@ -45,8 +45,8 @@ public class CategoryActivity extends Activity {
         setContentView(R.layout.activity_category);
 
         ListView listView = findViewById(R.id.listViewCategory);
-        String[] names = {"Filme", "Politik", "Serien", "Sport", "Wissenschaft", "Alle Kategorien", "Zeitmodus"};
-        String[] descriptions = {"10 Fragen zum Thema Filme", "10 Fragen zum Thema Politik", "10 Fragen zum Thema Serien", "10 Fragen zum Thema Sport", "10 Fragen zum Thema Wissenschaft", "Eine falsche Antwort und das war's", "So viele Fragen wie möglich in 2 Minuten"};
+        String[] names = {"Filme", "Politik", "Serien", "Sport", "Wissenschaft", "Alle Kategorien", "Zeitmodus", "Arcade"};
+        String[] descriptions = {"10 Fragen zum Thema Filme", "10 Fragen zum Thema Politik", "10 Fragen zum Thema Serien", "10 Fragen zum Thema Sport", "10 Fragen zum Thema Wissenschaft", "Eine falsche Antwort und das war's", "So viele Fragen wie möglich in 2 Minuten","Für jede richtige Antwort gibt es einen Zeitbonus"};
         List<Map<String, String>> data = new ArrayList<>();
         for (int i = 0; i < names.length; i++) {
             Map<String, String> entry = new HashMap<>(2);
@@ -94,7 +94,10 @@ public class CategoryActivity extends Activity {
                         Utils.currentCategory = Utils.CATEGORY_EVERYTHING;
                         startTimeActivity();
                         break;
-
+                    case 7:
+                        Utils.currentCategory = Utils.CATEGORY_EVERYTHING;
+                        startArcadeActivtity();
+                        break;
                 }
             }
         });
@@ -112,6 +115,11 @@ public class CategoryActivity extends Activity {
 
     private void startTimeActivity() {
         Intent intent = new Intent(getApplicationContext(), TimeActivity.class);
+        startActivity(intent);
+    }
+
+    private void startArcadeActivtity(){
+        Intent intent = new Intent (getApplicationContext(),ArcadeActivity.class);
         startActivity(intent);
     }
 }
