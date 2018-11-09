@@ -6,9 +6,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class CategoryActivity extends Activity {
 
@@ -40,9 +45,22 @@ public class CategoryActivity extends Activity {
         setContentView(R.layout.activity_category);
 
         ListView listView = findViewById(R.id.listViewCategory);
-        String[] strings = {"Filme", "Politik", "Serien", "Sport", "Wissenschaft", "Alle Kategorien", "Zeitmodus"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.list_item_category, strings);
+        String[] names = {"Filme", "Politik", "Serien", "Sport", "Wissenschaft", "Alle Kategorien", "Zeitmodus"};
+        String[] descriptions = {"10 Fragen zum Thema Filme", "10 Fragen zum Thema Politik", "10 Fragen zum Thema Serien", "10 Fragen zum Thema Sport", "10 Fragen zum Thema Wissenschaft", "Eine falsche Antwort und das war's", "So viele Fragen wie möglich in 2 Minuten"};
+        List<Map<String, String>> data = new ArrayList<>();
+        for (int i = 0; i < names.length; i++) {
+            Map<String, String> entry = new HashMap<>(2);
+            entry.put("name", names[i]);
+            entry.put("desc", descriptions[i]);
+            data.add(entry);
+        }
+        SimpleAdapter adapter = new SimpleAdapter(this, data,
+                android.R.layout.simple_list_item_2,
+                new String[]{"name", "desc"},
+                new int[]{android.R.id.text1, android.R.id.text2});
         listView.setAdapter(adapter);
+
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
