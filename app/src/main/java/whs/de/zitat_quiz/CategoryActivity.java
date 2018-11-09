@@ -40,7 +40,7 @@ public class CategoryActivity extends Activity {
         setContentView(R.layout.activity_category);
 
         ListView listView = findViewById(R.id.listViewCategory);
-        String[] strings = {"Filme", "Politik", "Serien", "Sport", "Wissenschaft", "Alle Kategorien", "Zeitmodus"};
+        String[] strings = {"Filme", "Politik", "Serien", "Sport", "Wissenschaft", "Alle Kategorien", "Zeitmodus","Arcade"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.list_item_category, strings);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -76,7 +76,10 @@ public class CategoryActivity extends Activity {
                         Utils.currentCategory = Utils.CATEGORY_EVERYTHING;
                         startTimeActivity();
                         break;
-
+                    case 7:
+                        Utils.currentCategory = Utils.CATEGORY_EVERYTHING;
+                        startArcadeActivtity();
+                        break;
                 }
             }
         });
@@ -94,6 +97,11 @@ public class CategoryActivity extends Activity {
 
     private void startTimeActivity() {
         Intent intent = new Intent(getApplicationContext(), TimeActivity.class);
+        startActivity(intent);
+    }
+
+    private void startArcadeActivtity(){
+        Intent intent = new Intent (getApplicationContext(),ArcadeActivity.class);
         startActivity(intent);
     }
 }

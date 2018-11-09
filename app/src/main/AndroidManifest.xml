@@ -27,6 +27,7 @@
         <activity android:name=".ResultActivity" />
         <activity android:name=".ExtendedActivity" />
         <activity android:name=".TimeActivity" />
+        <activity android:name=".ArcadeActivity"></activity>
     </application>
 
 </manifest>
