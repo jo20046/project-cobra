@@ -46,6 +46,7 @@ public class TimeActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (doubleBackToExitPressedOnce) {
+            mCountDownTimer.cancel();
             Intent intent = new Intent(getApplicationContext(), CategoryActivity.class);
             startActivity(intent);
         }
