@@ -42,6 +42,7 @@ public class ArcadeActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (doubleBackToExitPressedOnce) {
+            mCountDownTimer.cancel();
             Intent intent = new Intent(getApplicationContext(), CategoryActivity.class);
             startActivity(intent);
         }
@@ -55,6 +56,7 @@ public class ArcadeActivity extends AppCompatActivity {
                 doubleBackToExitPressedOnce = false;
             }
         }, 2000);
+
     }
 
 
