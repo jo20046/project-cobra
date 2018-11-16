@@ -10,10 +10,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 public class ResultActivity extends AppCompatActivity {
 
+    static int MODUS;
     private ConstraintLayout constraintLayout;
     SharedPreferences pref;
     SharedPreferences.Editor prefEditor;
@@ -31,6 +30,7 @@ public class ResultActivity extends AppCompatActivity {
         TextView txtResult = findViewById(R.id.txtResult);
         TextView txtHighscore = findViewById(R.id.txtHighscore);
         Button btnReturnToCategories = findViewById(R.id.btnReturnToCategories);
+        Button btnLog = findViewById(R.id.btnLog);
 
         String resultText ="";
 
@@ -85,6 +85,15 @@ public class ResultActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), CategoryActivity.class);
+                QuizActivity.usedQuestionsStandard.clear();
+                startActivity(intent);
+            }
+        });
+
+        btnLog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), LogActivity.class);
                 startActivity(intent);
             }
         });

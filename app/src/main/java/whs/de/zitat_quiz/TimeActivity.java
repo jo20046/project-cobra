@@ -1,16 +1,12 @@
 package whs.de.zitat_quiz;
 
-import android.animation.Animator;
-import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -34,7 +30,8 @@ public class TimeActivity extends AppCompatActivity {
     private int CHOSEN_ANSWER = -1; // index of the answer chosen by user (checked radio button)
     private List<Question> questionList;
     private List<Answer> answerList;
-    private int currentQuestion = 0;
+    static List<Question> usedQuestions = new ArrayList<>();
+    static int currentQuestion = 0;
 
     private boolean doubleBackToExitPressedOnce = false;
 
@@ -70,6 +67,8 @@ public class TimeActivity extends AppCompatActivity {
         final RadioGroup rdGrAnswers = findViewById(R.id.rdGrAnswers);
         final Button btnNextQuestion = findViewById(R.id.btnNextQuestion);
 
+
+        ResultActivity.MODUS = 6;
 
         // < - - Listeners Start - - >
         rdGrAnswers.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -165,6 +164,7 @@ public class TimeActivity extends AppCompatActivity {
 
         int rnd = (int) (Math.random() * NUMBER_OF_QUESTIONS);
         Question question = questionList.get(rnd);
+        usedQuestions.add(question);
         questionList.remove(rnd);
         NUMBER_OF_QUESTIONS--;
         txtQuestion.setText(question.getValue());

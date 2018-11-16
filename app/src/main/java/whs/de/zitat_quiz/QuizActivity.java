@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -29,7 +28,7 @@ public class QuizActivity extends AppCompatActivity {
     private int CORRECT_ANSWER; // index of the current answer for the current question
     private int CHOSEN_ANSWER = -1; // index of the answer chosen by user (checked radio button)
     private List<Question> questionList;
-    private List<Question> usedQuestions = new ArrayList<>();
+    static List<Question> usedQuestionsStandard = new ArrayList<>();
     private List<Answer> answerList;
     private int currentQuestion = 0;
     private boolean doubleBackToExitPressedOnce = false;
@@ -96,11 +95,6 @@ public class QuizActivity extends AppCompatActivity {
 
                 progressBar.setProgress(currentQuestion);
 
-                if (CORRECT_ANSWER != CHOSEN_ANSWER && Utils.currentCategory == 5) {
-                    Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
-                    startActivity(intent);
-                    return;
-                }
 
                 rdGrAnswers.clearCheck();
                 CHOSEN_ANSWER = -1;
@@ -132,6 +126,7 @@ public class QuizActivity extends AppCompatActivity {
 
         int rnd = (int) (Math.random() * NUMBER_OF_QUESTIONS);
         Question question = questionList.get(rnd);
+        usedQuestionsStandard.add(question);
         questionList.remove(rnd);
         NUMBER_OF_QUESTIONS--;
         txtQuestion.setText(question.getValue());
@@ -198,18 +193,23 @@ public class QuizActivity extends AppCompatActivity {
         switch (Utils.currentCategory) {
             case 0:
                 is = getResources().openRawResource(R.raw.filme);
+                ResultActivity.MODUS = 0;
                 break;
             case 1:
                 is = getResources().openRawResource(R.raw.politik);
+                ResultActivity.MODUS = 1;
                 break;
             case 2:
                 is = getResources().openRawResource(R.raw.wissenschaft);
+                ResultActivity.MODUS = 2;
                 break;
             case 3:
                 is = getResources().openRawResource(R.raw.sport);
+                ResultActivity.MODUS = 3;
                 break;
             default: // uses "serien.csv" as default so that InputStream is initialized in any case, could be better but works for testing
                 is = getResources().openRawResource(R.raw.serien);
+                ResultActivity.MODUS = 4;
                 break;
         }
 

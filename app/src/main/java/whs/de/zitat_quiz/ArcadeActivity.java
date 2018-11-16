@@ -30,7 +30,8 @@ public class ArcadeActivity extends AppCompatActivity {
     private int CHOSEN_ANSWER = -1; // index of the answer chosen by user (checked radio button)
     private List<Question> questionList;
     private List<Answer> answerList;
-    private int currentQuestion = 0;
+    static List<Question> usedQuestions = new ArrayList<>();
+    static int currentQuestion = 0;
 
     private boolean doubleBackToExitPressedOnce = false;
 
@@ -67,6 +68,8 @@ public class ArcadeActivity extends AppCompatActivity {
 
         final RadioGroup rdGrAnswers = findViewById(R.id.rdGrAnswers);
         final Button btnNextQuestion = findViewById(R.id.btnNextQuestion);
+
+        ResultActivity.MODUS = 7;
 
 
         // < - - Listeners Start - - >
@@ -168,6 +171,7 @@ public class ArcadeActivity extends AppCompatActivity {
 
         int rnd = (int) (Math.random() * NUMBER_OF_QUESTIONS);
         Question question = questionList.get(rnd);
+        usedQuestions.add(question);
         questionList.remove(rnd);
         NUMBER_OF_QUESTIONS--;
         txtQuestion.setText(question.getValue());

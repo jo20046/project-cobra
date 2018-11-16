@@ -2,7 +2,6 @@ package whs.de.zitat_quiz;
 
 import android.content.Intent;
 import android.os.Handler;
-import android.renderscript.ScriptGroup;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -30,7 +29,8 @@ public class ExtendedActivity extends AppCompatActivity {
     private int CHOSEN_ANSWER = -1; // index of the answer chosen by user (checked radio button)
     private List<Question> questionList;
     private List<Answer> answerList;
-    private int currentQuestion = 0;
+    static List<Question> usedQuestions = new ArrayList<>();
+    static int currentQuestion = 0;
 
     private boolean doubleBackToExitPressedOnce = false;
 
@@ -60,7 +60,7 @@ public class ExtendedActivity extends AppCompatActivity {
         final RadioGroup rdGrAnswers = findViewById(R.id.rdGrAnswers);
         final Button btnNextQuestion = findViewById(R.id.btnNextQuestion);
 
-
+        ResultActivity.MODUS = 5;
 
         // < - - Listeners Start - - >
         rdGrAnswers.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -160,6 +160,7 @@ public class ExtendedActivity extends AppCompatActivity {
         int rnd = (int) (Math.random() * NUMBER_OF_QUESTIONS);
         Question question = questionList.get(rnd);
         questionList.remove(rnd);
+        usedQuestions.add(question);
         NUMBER_OF_QUESTIONS--;
         txtQuestion.setText(question.getValue());
 
