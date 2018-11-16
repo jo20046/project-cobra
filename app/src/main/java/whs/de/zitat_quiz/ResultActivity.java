@@ -2,6 +2,8 @@ package whs.de.zitat_quiz;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +14,7 @@ import org.w3c.dom.Text;
 
 public class ResultActivity extends AppCompatActivity {
 
+    private ConstraintLayout constraintLayout;
     SharedPreferences pref;
     SharedPreferences.Editor prefEditor;
 
@@ -67,10 +70,15 @@ public class ResultActivity extends AppCompatActivity {
                         break;
                 }
 
-            }
+                constraintLayout = findViewById(R.id.resultLayout);
+                //Snackbar newMessage = Snackbar.make(constraintLayout,"Glückwunsch du hast einen neuen Highscore aufgestellt!",Snackbar.LENGTH_INDEFINITE);
+                Snackbar.make(constraintLayout,"Glückwunsch du hast einen neuen Highscore aufgestellt!",Snackbar.LENGTH_LONG).show();
 
-            if(highscore > 0)
-                txtHighscore.setText(Integer.toString(highscore));
+                txtHighscore.setText("Der Highscore liegt bei " + Integer.toString(Utils.USER_SCORE) + " Punkten!");
+
+            }
+            else
+                txtHighscore.setText("Der Highscore liegt bei " + Integer.toString(highscore) + " Punkten!");
         }
 
         btnReturnToCategories.setOnClickListener(new View.OnClickListener() {
@@ -91,7 +99,7 @@ public class ResultActivity extends AppCompatActivity {
     private int getHighscoreTime(){
 
         this.pref = this.getSharedPreferences("time",MODE_PRIVATE);
-        return pref.getInt("extended",0);
+        return pref.getInt("time",0);
     }
 
     private int getHighscoreArcade(){
@@ -120,7 +128,7 @@ public class ResultActivity extends AppCompatActivity {
 
     private void setHighscoreArcade(int score){
 
-        this.pref = getSharedPreferences("extended",MODE_PRIVATE);
+        this.pref = getSharedPreferences("arcade",MODE_PRIVATE);
         this.prefEditor = pref.edit();
 
         prefEditor.putInt("arcade",score);
