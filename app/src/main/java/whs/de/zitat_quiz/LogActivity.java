@@ -13,6 +13,7 @@ public class LogActivity extends AppCompatActivity {
     private boolean doubleBackToExitPressedOnce = false;
     private int LIMIT = 0;
 
+
     @Override
     public void onBackPressed() {
         if (doubleBackToExitPressedOnce) {
@@ -76,7 +77,7 @@ public class LogActivity extends AppCompatActivity {
                     LIMIT = 9;
 
                     for(int i=0; i <= LIMIT; i++){
-                        Question temp = QuizActivity.usedQuestionsStandard.get(i);
+                        Question temp = QuizActivity.usedQuestions.get(i);
                         txtLog.append(temp.getValue() + "  -" + temp.getCorrectAnswer().getValue() + "\n");
                         txtLog.append("\n");
                     }

@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.sql.Time;
+
 public class ResultActivity extends AppCompatActivity {
 
     static int MODUS;
@@ -34,7 +36,7 @@ public class ResultActivity extends AppCompatActivity {
 
         String resultText ="";
 
-        if(Utils.currentCategory < 5){
+        if(MODUS < 5){
             resultText = Utils.USER_SCORE + "/10 Fragen richtig beantwortet";
             txtResult.setText(resultText);
         } else {
@@ -43,7 +45,7 @@ public class ResultActivity extends AppCompatActivity {
 
             int highscore = 0;
 
-            switch (Utils.currentCategory){
+            switch (MODUS){
                 case 5:
                     highscore = getHighscoreExtended();
                     break;
@@ -85,7 +87,26 @@ public class ResultActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), CategoryActivity.class);
-                QuizActivity.usedQuestionsStandard.clear();
+
+
+                switch (MODUS) {
+                    case 5:
+                        ExtendedActivity.usedQuestions.clear();
+                        ExtendedActivity.currentQuestion = 0;
+                        break;
+                    case 6:
+                        TimeActivity.usedQuestions.clear();
+                        TimeActivity.currentQuestion = 0;
+                        break;
+                    case 7:
+                        ArcadeActivity.usedQuestions.clear();
+                        ArcadeActivity.currentQuestion = 0;
+                        break;
+                    default:
+                        QuizActivity.usedQuestions.clear();
+                }
+
+
                 startActivity(intent);
             }
         });

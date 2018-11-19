@@ -28,7 +28,7 @@ public class QuizActivity extends AppCompatActivity {
     private int CORRECT_ANSWER; // index of the current answer for the current question
     private int CHOSEN_ANSWER = -1; // index of the answer chosen by user (checked radio button)
     private List<Question> questionList;
-    static List<Question> usedQuestionsStandard = new ArrayList<>();
+    static List<Question> usedQuestions = new ArrayList<>();
     private List<Answer> answerList;
     private int currentQuestion = 0;
     private boolean doubleBackToExitPressedOnce = false;
@@ -126,7 +126,7 @@ public class QuizActivity extends AppCompatActivity {
 
         int rnd = (int) (Math.random() * NUMBER_OF_QUESTIONS);
         Question question = questionList.get(rnd);
-        usedQuestionsStandard.add(question);
+        usedQuestions.add(question);
         questionList.remove(rnd);
         NUMBER_OF_QUESTIONS--;
         txtQuestion.setText(question.getValue());
