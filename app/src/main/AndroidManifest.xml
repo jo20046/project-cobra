@@ -28,7 +28,7 @@
         <activity android:name=".ExtendedActivity" />
         <activity android:name=".TimeActivity" />
         <activity android:name=".ArcadeActivity" />
-        <activity android:name=".LogActivity"></activity>
+        <activity android:name=".LogActivity" />
     </application>
 
 </manifest>
