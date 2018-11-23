@@ -15,24 +15,6 @@ public class LogActivity extends AppCompatActivity {
 
 
     @Override
-    public void onBackPressed() {
-        if (doubleBackToExitPressedOnce) {
-            Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
-            startActivity(intent);
-        }
-
-        this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, "Wenn du zu der Ergebnisanzeige zurück möchtest, drücke noch einmal auf die Zurück-Taste", Toast.LENGTH_SHORT).show();
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                doubleBackToExitPressedOnce = false;
-            }
-        }, 2000);
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log);
