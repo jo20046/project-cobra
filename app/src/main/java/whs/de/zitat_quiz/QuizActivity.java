@@ -32,6 +32,7 @@ public class QuizActivity extends AppCompatActivity {
     private List<Answer> answerList;
     private int currentQuestion = 0;
     private boolean doubleBackToExitPressedOnce = false;
+    private boolean checkSituation;
 
     @Override
     public void onBackPressed() {
@@ -57,6 +58,10 @@ public class QuizActivity extends AppCompatActivity {
         setContentView(R.layout.activity_quiz);
 
         final RadioGroup rdGrAnswers = findViewById(R.id.rdGrAnswers);
+        final RadioButton radioButton1 = findViewById(R.id.rdBtnAnswer1);
+        final RadioButton radioButton2 = findViewById(R.id.rdBtnAnswer2);
+        final RadioButton radioButton3 = findViewById(R.id.rdBtnAnswer3);
+        final RadioButton radioButton4 = findViewById(R.id.rdBtnAnswer4);
         final Button btnNextQuestion = findViewById(R.id.btnNextQuestion);
         final ProgressBar progressBar = findViewById(R.id.progressBar);
 
@@ -65,20 +70,22 @@ public class QuizActivity extends AppCompatActivity {
         rdGrAnswers.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                btnNextQuestion.setEnabled(true);
-                switch (checkedId) {
-                    case R.id.rdBtnAnswer1:
-                        CHOSEN_ANSWER = 0;
-                        break;
-                    case R.id.rdBtnAnswer2:
-                        CHOSEN_ANSWER = 1;
-                        break;
-                    case R.id.rdBtnAnswer3:
-                        CHOSEN_ANSWER = 2;
-                        break;
-                    case R.id.rdBtnAnswer4:
-                        CHOSEN_ANSWER = 3;
-                        break;
+                if (!checkSituation) {
+                    btnNextQuestion.setEnabled(true);
+                    switch (checkedId) {
+                        case R.id.rdBtnAnswer1:
+                            CHOSEN_ANSWER = 0;
+                            break;
+                        case R.id.rdBtnAnswer2:
+                            CHOSEN_ANSWER = 1;
+                            break;
+                        case R.id.rdBtnAnswer3:
+                            CHOSEN_ANSWER = 2;
+                            break;
+                        case R.id.rdBtnAnswer4:
+                            CHOSEN_ANSWER = 3;
+                            break;
+                    }
                 }
             }
         });
@@ -89,23 +96,43 @@ public class QuizActivity extends AppCompatActivity {
 
                 Button button = (Button) v;
 
-                if (CORRECT_ANSWER == CHOSEN_ANSWER) {
-                    Utils.USER_SCORE++;
-                }
-
-                progressBar.setProgress(currentQuestion);
-
-
-                rdGrAnswers.clearCheck();
-                CHOSEN_ANSWER = -1;
-                if (currentQuestion < QUESTIONS_PER_GAME) {
-                    displayQuestion();
+                if (!checkSituation) {
+                    if (CORRECT_ANSWER == CHOSEN_ANSWER) {
+                        button.setBackgroundColor(getResources().getColor(R.color.colorAnswerCorrect));
+                    } else {
+                        button.setBackgroundColor(getResources().getColor(R.color.colorAnswerFalse));
+                    }
+                    checkSituation = true;
+                    radioButton1.setEnabled(false);
+                    radioButton2.setEnabled(false);
+                    radioButton3.setEnabled(false);
+                    radioButton4.setEnabled(false);
                 } else {
-                    Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
-                    startActivity(intent);
+                    if (CORRECT_ANSWER == CHOSEN_ANSWER) {
+                        Utils.USER_SCORE++;
+                    }
+
+                    progressBar.setProgress(currentQuestion);
+
+                    rdGrAnswers.clearCheck();
+                    CHOSEN_ANSWER = -1;
+                    if (currentQuestion < QUESTIONS_PER_GAME) {
+                        displayQuestion();
+                    } else {
+                        Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+                        startActivity(intent);
+                    }
+
+                    button.setEnabled(false);
+                    radioButton1.setEnabled(true);
+                    radioButton2.setEnabled(true);
+                    radioButton3.setEnabled(true);
+                    radioButton4.setEnabled(true);
+                    checkSituation = false;
+                    button.setBackgroundColor(getResources().getColor(R.color.colorDefaultButton));
                 }
 
-                button.setEnabled(false);
+
             }
         });
 
@@ -114,6 +141,7 @@ public class QuizActivity extends AppCompatActivity {
         initDB();
         displayQuestion();
         Utils.USER_SCORE = 0;
+        checkSituation = false;
     }
 
     private void displayQuestion() {
