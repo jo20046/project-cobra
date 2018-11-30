@@ -29,6 +29,7 @@
         <activity android:name=".TimeActivity" />
         <activity android:name=".ArcadeActivity" />
         <activity android:name=".LogActivity" />
+        <activity android:name=".TestActivity"></activity>
     </application>
 
 </manifest>
