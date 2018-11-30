@@ -14,6 +14,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        DBReader.readDB();
+
         Button btnCategoryActivity = findViewById(R.id.btnCategoryActivity);
 
         btnCategoryActivity.setOnClickListener(new View.OnClickListener() {

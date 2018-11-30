@@ -217,44 +217,27 @@ public class QuizActivity extends AppCompatActivity {
         questionList = new ArrayList<>();
         answerList = new ArrayList<>();
 
-        InputStream is;
         switch (Utils.currentCategory) {
             case 0:
-                is = getResources().openRawResource(R.raw.filme);
-                ResultActivity.MODUS = 0;
+                questionList.addAll(Utils.questionsMovies);
+                answerList.addAll(Utils.answersMovies);
                 break;
             case 1:
-                is = getResources().openRawResource(R.raw.politik);
-                ResultActivity.MODUS = 1;
+                questionList.addAll(Utils.questionsPolitics);
+                answerList.addAll(Utils.answersPolitics);
                 break;
             case 2:
-                is = getResources().openRawResource(R.raw.wissenschaft);
-                ResultActivity.MODUS = 2;
+                questionList.addAll(Utils.questionsScience);
+                answerList.addAll(Utils.answersScience);
                 break;
             case 3:
-                is = getResources().openRawResource(R.raw.sport);
-                ResultActivity.MODUS = 3;
+                questionList.addAll(Utils.questionsSports);
+                answerList.addAll(Utils.answersSports);
                 break;
-            default: // uses "serien.csv" as default so that InputStream is initialized in any case, could be better but works for testing
-                is = getResources().openRawResource(R.raw.serien);
-                ResultActivity.MODUS = 4;
+            case 4:
+                questionList.addAll(Utils.questionsTelevision);
+                answerList.addAll(Utils.answersTelevision);
                 break;
-        }
-
-        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-
-        String line;
-        try {
-            while ((line = reader.readLine()) != null) {
-                if (Character.isDigit(line.charAt(0))) {
-                    Answer a = new Answer(line.substring(line.lastIndexOf(';') + 1), "category");
-                    Question q = new Question(line.substring(line.indexOf(';') + 1, line.lastIndexOf(';')), "category", a.getValue());
-                    answerList.add(a);
-                    questionList.add(q);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
 
         NUMBER_OF_QUESTIONS = questionList.size();

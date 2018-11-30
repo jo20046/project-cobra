@@ -152,29 +152,17 @@ public class TimeActivity extends AppCompatActivity {
         questionList = new ArrayList<>();
         answerList = new ArrayList<>();
 
-        InputStream is = getResources().openRawResource(R.raw.everything);
+        questionList.addAll(Utils.questionsMovies);
+        questionList.addAll(Utils.questionsPolitics);
+        questionList.addAll(Utils.questionsScience);
+        questionList.addAll(Utils.questionsSports);
+        questionList.addAll(Utils.questionsTelevision);
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-
-        String line;
-
-        String[] result;
-
-        try {
-            while ((line = reader.readLine()) != null) {
-                if (Character.isDigit(line.charAt(0))) {
-
-                    result = line.split(";");
-
-                    Answer a = new Answer(result[2],result[3]);
-                    Question q = new Question(result[1],result[3], a.getValue());
-                    answerList.add(a);
-                    questionList.add(q);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        answerList.addAll(Utils.answersMovies);
+        answerList.addAll(Utils.answersPolitics);
+        answerList.addAll(Utils.answersScience);
+        answerList.addAll(Utils.answersSports);
+        answerList.addAll(Utils.answersTelevision);
 
         NUMBER_OF_QUESTIONS = questionList.size();
         NUMBER_OF_ANSWERS = answerList.size();
