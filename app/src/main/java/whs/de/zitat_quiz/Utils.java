@@ -14,6 +14,8 @@ public class Utils {
     static final int CATEGORY_EVERYTHING = 5;
     static final int CATEGORY_TIME = 6;
 
+    static String database_content="";
+
     static int currentCategory;
 
     static int USER_SCORE;
@@ -28,5 +30,6 @@ public class Utils {
     static List<Answer> answersScience = new ArrayList<>();
     static List<Answer> answersSports = new ArrayList<>();
     static List<Answer> answersTelevision = new ArrayList<>();
+
 
 }

@@ -36,12 +36,14 @@ public class ResultActivity extends AppCompatActivity {
 
         String resultText ="";
 
-        if(MODUS < 5){
-            resultText = Utils.USER_SCORE + "/10 Fragen richtig beantwortet";
-            txtResult.setText(resultText);
-        } else {
-            resultText = "Glückwunsch du hast " + Utils.USER_SCORE + " Fragen richtig beantwortet!";
-            txtResult.setText(resultText);
+        if(Utils.USER_SCORE == 0)
+            resultText = "Leider hast du keine Frage richtig beantwortet, viel Erfolg beim nächsten Mal!";
+        else
+            resultText = Utils.USER_SCORE + " Fragen richtig beantwortet";
+
+        txtResult.setText(resultText);
+
+        if(MODUS >= 5){
 
             int highscore = 0;
 

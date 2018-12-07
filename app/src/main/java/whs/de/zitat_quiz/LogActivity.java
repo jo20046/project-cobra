@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 public class LogActivity extends AppCompatActivity {
 
-    private boolean doubleBackToExitPressedOnce = false;
     private int LIMIT = 0;
 
 
