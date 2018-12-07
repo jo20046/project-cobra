@@ -52,18 +52,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
-                try{
-                    loadString(s);
-                } catch(JSONException e) {
-                    e.printStackTrace();
-                }
+                    Utils.database_content = database_content;
             }
 
             @Override
             protected String doInBackground(Void... voids) {
 
                 try {
-                    URL url = new URL("http://192.168.178.33/quizapp/everything.php");
+                    URL url = new URL("http://192.168.10.226/quizapp/everything.php");
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
                     StringBuilder sb = new StringBuilder();
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -83,14 +79,4 @@ public class MainActivity extends AppCompatActivity {
         getJSON.execute();
     }
 
-    private void loadString(String json) throws JSONException{
-
-        JSONArray jsonarray = new JSONArray(json);
-        String[] stocks = new String[jsonarray.length()];
-        for(int i=0; i < jsonarray.length();i++){
-            JSONObject obj = jsonarray.getJSONObject(i);
-            stocks[i]= obj.getString("id") + " " + obj.getString("quote") + " " + obj.getString("person") + " " + obj.getString("category");
-            Utils.database_content += stocks[i];
-        }
-    }
 }
