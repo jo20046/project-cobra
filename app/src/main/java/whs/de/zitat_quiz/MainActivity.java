@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         btnCategoryActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DBReader.formatDBcontent();
                 Intent intent = new Intent(getApplicationContext(), CategoryActivity.class);
                 startActivity(intent);
             }
@@ -62,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                     URL url = new URL("http://192.168.10.226/quizapp/everything.php");
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
                     StringBuilder sb = new StringBuilder();
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
                     String json;
                     while ((json = bufferedReader.readLine()) != null) {
                         sb.append(json + "\n");

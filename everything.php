@@ -13,17 +13,11 @@
 	}
 		
 	for($temp = 0; $temp < sizeof($quote); $temp++){
-		$j_encoded = json_encode(utf8_encode($quote[$temp]));
-		$j_decoded = json_decode($j_encoded);
-		echo $j_decoded.";";
+		echo $quote[$temp].";";
 		
-		$j_encoded = json_encode(utf8_encode($person[$temp]));
-		$j_decoded = json_decode($j_encoded);
-		echo $j_decoded.";";
+		echo $quote[$temp].";";
 		
-		$j_encoded = json_encode(utf8_encode($category[$temp]));
-		$j_decoded = json_decode($j_encoded);
-		echo $j_decoded."|";
+		echo $quote[$temp]."|";
 	}
 	
 	
