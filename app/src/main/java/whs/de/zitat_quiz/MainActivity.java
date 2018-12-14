@@ -1,18 +1,16 @@
 package whs.de.zitat_quiz;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import android.content.Context;
 
 import java.io.BufferedReader;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -20,6 +18,7 @@ import java.net.URL;
 public class MainActivity extends AppCompatActivity {
 
     private String database_content="";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         btnCategoryActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DBReader.formatDBcontent();
+                readDB();
                 Intent intent = new Intent(getApplicationContext(), CategoryActivity.class);
                 startActivity(intent);
             }
@@ -79,5 +78,74 @@ public class MainActivity extends AppCompatActivity {
         DownloadJSON getJSON = new DownloadJSON();
         getJSON.execute();
     }
+
+    private void readDB() {
+
+        if (Utils.database_content.equals("")) {    // couldn't access DB
+
+            try {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(openFileInput("everything.txt")));
+                formatDBcontent(reader.readLine());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        } else {
+
+            formatDBcontent(Utils.database_content);
+
+            writeLocalFiles();
+        }
+    }
+
+    private void formatDBcontent(String unformatted) {
+        String[] data = unformatted.split("\\|");
+
+        for (int i = 1; i < data.length; i++) {
+            String[] arrQuote = data[i].split(";");
+            String quote = arrQuote[0];
+            String person = arrQuote[1];
+            String category = arrQuote[2];
+
+            Question q = new Question(quote, category, person);
+            Answer a = new Answer(person, category);
+
+            switch (category) {
+                case "Filme":
+                    Utils.questionsMovies.add(q);
+                    Utils.answersMovies.add(a);
+                    break;
+                case "Politik":
+                    Utils.questionsPolitics.add(q);
+                    Utils.answersPolitics.add(a);
+                    break;
+                case "Wissenschaft":
+                    Utils.questionsScience.add(q);
+                    Utils.answersScience.add(a);
+                    break;
+                case "Sport":
+                    Utils.questionsSports.add(q);
+                    Utils.answersSports.add(a);
+                    break;
+                case "Serien":
+                    Utils.questionsTelevision.add(q);
+                    Utils.answersTelevision.add(a);
+                    break;
+            }
+        }
+    }
+
+    private void writeLocalFiles() {
+        try {
+            FileOutputStream stream = openFileOutput("everything.txt", Context.MODE_PRIVATE);
+            stream.write(Utils.database_content.getBytes());
+            stream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
 
 }

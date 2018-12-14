@@ -32,18 +32,4 @@ public class Utils {
     static List<Answer> answersSports = new ArrayList<>();
     static List<Answer> answersTelevision = new ArrayList<>();
 
-
-    public static String isoToUTF8(String s) {
-        String r;
-        try {
-            byte[] arr = s.getBytes("ISO-8859-15");
-            r = new String(arr, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            r = "Exception";
-            e.printStackTrace();
-        }
-        return r;
-    }
-
-
 }
