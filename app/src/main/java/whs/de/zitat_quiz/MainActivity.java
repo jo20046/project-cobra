@@ -19,7 +19,7 @@ import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
-    static String database_content="";
+    private String database_content="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
             protected String doInBackground(Void... voids) {
 
                 try {
-                    URL url = new URL("http://192.168.10.226/quizapp/everything.php");
+                    URL url = new URL("http://192.168.3.155/quizapp/everything.php");
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
                     StringBuilder sb = new StringBuilder();
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));

@@ -6,7 +6,7 @@ public class DBReader {
 
     static void formatDBcontent() {
 
-        String[] data = MainActivity.database_content.split("\\|");
+        String[] data = Utils.database_content.split("\\|");
 
         for (int i = 1; i < data.length; i++) {
             String[] arrQuote = data[i].split(";");
