@@ -1,6 +1,7 @@
 package whs.de.zitat_quiz;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,7 +18,7 @@ import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String database_content="";
+    private String database_content = "";
 
 
     @Override
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
-                    Utils.database_content = database_content;
+                Utils.database_content = database_content;
             }
 
             @Override
@@ -63,12 +64,15 @@ public class MainActivity extends AppCompatActivity {
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
                     StringBuilder sb = new StringBuilder();
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
-                    String json;
-                    while ((json = bufferedReader.readLine()) != null) {
-                        sb.append(json + "\n");
+                    long timestamp = Long.parseLong(bufferedReader.readLine());
+                    if (isCacheOutdated(timestamp)) {
+                        database_content = bufferedReader.readLine();
+                        SharedPreferences preferences = getSharedPreferences("timestamp", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putLong("timestamp", timestamp);
+                        editor.commit();
                     }
-                    database_content = sb.toString().trim();
-                    return sb.toString().trim();
+                    return database_content.trim();
                 } catch (Exception e) {
                     return null;
                 }
@@ -77,6 +81,13 @@ public class MainActivity extends AppCompatActivity {
 
         DownloadJSON getJSON = new DownloadJSON();
         getJSON.execute();
+    }
+
+    private boolean isCacheOutdated(long serverTime) {
+        SharedPreferences preferences = getSharedPreferences("timestamp", MODE_PRIVATE);
+        long cacheTime = preferences.getLong("timestamp", 0);
+        return serverTime > cacheTime;
+
     }
 
     private void readDB() {
@@ -145,7 +156,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
 
 
 }
