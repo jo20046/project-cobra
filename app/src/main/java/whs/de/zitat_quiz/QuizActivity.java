@@ -1,9 +1,11 @@
 package whs.de.zitat_quiz;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -48,6 +50,7 @@ public class QuizActivity extends AppCompatActivity {
         }, 2000);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,24 +89,28 @@ public class QuizActivity extends AppCompatActivity {
             }
         });
 
-        btnNextQuestion.setOnClickListener(new View.OnClickListener() {
+        btnNextQuestion.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-
-                Button button = (Button) v;
-
-                if (!checkSituation) {
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     if (CORRECT_ANSWER == CHOSEN_ANSWER) {
-                        button.setBackgroundColor(getResources().getColor(R.color.colorAnswerCorrect));
+                        btnNextQuestion.setBackgroundColor(getResources().getColor(R.color.colorAnswerCorrect));
                     } else {
-                        button.setBackgroundColor(getResources().getColor(R.color.colorAnswerFalse));
+                        btnNextQuestion.setBackgroundColor(getResources().getColor(R.color.colorAnswerFalse));
                     }
-                    checkSituation = true;
                     radioButton1.setEnabled(false);
                     radioButton2.setEnabled(false);
                     radioButton3.setEnabled(false);
                     radioButton4.setEnabled(false);
-                } else {
+
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
                     if (CORRECT_ANSWER == CHOSEN_ANSWER) {
                         Utils.USER_SCORE++;
                     }
@@ -119,16 +126,15 @@ public class QuizActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
 
-                    button.setEnabled(false);
+                    btnNextQuestion.setEnabled(false);
                     radioButton1.setEnabled(true);
                     radioButton2.setEnabled(true);
                     radioButton3.setEnabled(true);
                     radioButton4.setEnabled(true);
                     checkSituation = false;
-                    button.setBackgroundColor(getResources().getColor(R.color.colorDefaultButton));
+                    btnNextQuestion.setBackgroundColor(getResources().getColor(R.color.colorDefaultButton));
                 }
-
-
+                return false;
             }
         });
 
