@@ -28,11 +28,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        setTitle("");
+
         read_database();
 
         Button btnCategoryActivity = findViewById(R.id.btnCategoryActivity);
-
-
         btnCategoryActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

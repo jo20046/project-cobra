@@ -5,6 +5,7 @@
 
     <!-- MainActivity -->
     <string name="btnCategoryActivity">Start</string>
+    <string name="txtWelcome">Willkommen zum Zitatquiz!</string>
 
     <!-- CategoryActivity -->
     <string name="txtCategoryHeadline">Wählen Sie eine Kategorie:</string>
