@@ -39,7 +39,7 @@ public class ResultActivity extends AppCompatActivity {
         if(Utils.USER_SCORE == 0)
             resultText = "Leider hast du keine Frage richtig beantwortet, viel Erfolg beim nächsten Mal!";
         else
-            resultText = Utils.USER_SCORE + " Fragen richtig beantwortet";
+            resultText = Utils.USER_SCORE + " Frage(n) richtig beantwortet";
 
         txtResult.setText(resultText);
 
@@ -62,7 +62,7 @@ public class ResultActivity extends AppCompatActivity {
 
             if(highscore < Utils.USER_SCORE){
 
-                switch (Utils.currentCategory){
+                switch (MODUS){
                     case 5:
                         setHighscoreExtended(Utils.USER_SCORE);
                         break;
