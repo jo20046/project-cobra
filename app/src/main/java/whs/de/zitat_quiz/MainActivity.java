@@ -26,11 +26,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        setTitle("");
+
         read_database();
 
         Button btnCategoryActivity = findViewById(R.id.btnCategoryActivity);
-
-
         btnCategoryActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
             protected String doInBackground(Void... voids) {
 
                 try {
-                    URL url = new URL("http://192.168.3.155/quizapp/everything.php");
+                    URL url = new URL("http://192.168.5.42/quizapp/everything.php");
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
                     StringBuilder sb = new StringBuilder();
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
