@@ -2,22 +2,21 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="whs.de.zitat_quiz">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -27,11 +26,21 @@
         <activity
             android:name=".QuizActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ResultActivity" />
-        <activity android:name=".ExtendedActivity" />
-        <activity android:name=".TimeActivity" />
-        <activity android:name=".ArcadeActivity" />
-        <activity android:name=".LogActivity" />
+        <activity
+            android:name=".ResultActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ExtendedActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TimeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ArcadeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LogActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
