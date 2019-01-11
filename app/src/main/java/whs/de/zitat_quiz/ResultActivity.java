@@ -120,6 +120,8 @@ public class ResultActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        setTitle("");
     }
 
     private int getHighscoreExtended(){

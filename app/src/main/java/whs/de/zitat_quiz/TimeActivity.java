@@ -117,6 +117,7 @@ public class TimeActivity extends AppCompatActivity {
                     displayQuestion();
                 } else {
                     Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+                    mCountDownTimer.cancel();
                     startActivity(intent);
                 }
 

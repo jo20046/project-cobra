@@ -65,6 +65,8 @@ public class QuizActivity extends AppCompatActivity {
         final ProgressBar progressBar = findViewById(R.id.progressBar);
 
 
+        setTitle("");
+
         // < - - Listeners Start - - >
         rdGrAnswers.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override

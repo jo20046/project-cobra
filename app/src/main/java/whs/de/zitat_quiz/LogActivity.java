@@ -22,6 +22,8 @@ public class LogActivity extends AppCompatActivity {
         txtLog.setMovementMethod(new ScrollingMovementMethod());
 
 
+        setTitle("");
+
         switch (ResultActivity.MODUS){
             case 5:
 
@@ -57,11 +59,14 @@ public class LogActivity extends AppCompatActivity {
 
                     LIMIT = 9;
 
+                    StringBuilder s = new StringBuilder();
+
                     for(int i=0; i <= LIMIT; i++){
                         Question temp = QuizActivity.usedQuestions.get(i);
-                        txtLog.append(temp.getValue() + "  -" + temp.getCorrectAnswer().getValue() + "\n");
-                        txtLog.append("\n");
+                        s.append(temp.getValue()).append("  -").append(temp.getCorrectAnswer().getValue()).append("\n\n");
                     }
+
+                    txtLog.setText(s.toString());
         }
 
 
