@@ -102,50 +102,25 @@ public class TimeActivity extends AppCompatActivity {
             }
         });
 
-        btnNextQuestion.setOnTouchListener(new View.OnTouchListener() {
+        btnNextQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    if (CORRECT_ANSWER == CHOSEN_ANSWER) {
-                        btnNextQuestion.setBackgroundColor(getResources().getColor(R.color.colorAnswerCorrect));
-                    } else {
-                        btnNextQuestion.setBackgroundColor(getResources().getColor(R.color.colorAnswerFalse));
-                    }
-                    radioButton1.setEnabled(false);
-                    radioButton2.setEnabled(false);
-                    radioButton3.setEnabled(false);
-                    radioButton4.setEnabled(false);
+            public void onClick(View v) {
 
-                } else if (event.getAction() == MotionEvent.ACTION_UP) {
-
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-
-                    if (CORRECT_ANSWER == CHOSEN_ANSWER) {
-                        Utils.USER_SCORE++;
-                    }
-
-                    rdGrAnswers.clearCheck();
-                    CHOSEN_ANSWER = -1;
-                    if (currentQuestion < QUESTIONS_PER_GAME) {
-                        displayQuestion();
-                    } else {
-                        Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
-                        startActivity(intent);
-                    }
-
-                    btnNextQuestion.setEnabled(false);
-                    radioButton1.setEnabled(true);
-                    radioButton2.setEnabled(true);
-                    radioButton3.setEnabled(true);
-                    radioButton4.setEnabled(true);
-                    checkSituation = false;
-                    btnNextQuestion.setBackgroundColor(getResources().getColor(R.color.colorDefaultButton));
+                if(CORRECT_ANSWER == CHOSEN_ANSWER){
+                    Utils.USER_SCORE++;
                 }
-                return false;
+
+
+                rdGrAnswers.clearCheck();
+                CHOSEN_ANSWER = -1;
+                if (currentQuestion < QUESTIONS_PER_GAME) {
+                    displayQuestion();
+                } else {
+                    Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+                    startActivity(intent);
+                }
+
+                btnNextQuestion.setEnabled(false);
             }
         });
         // < - - Listeners End - - >
