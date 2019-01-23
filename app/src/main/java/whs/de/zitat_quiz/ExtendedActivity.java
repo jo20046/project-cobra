@@ -57,6 +57,8 @@ public class ExtendedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_extended);
 
+        setTitle("");
+
         final RadioGroup rdGrAnswers = findViewById(R.id.rdGrAnswers);
         final Button btnNextQuestion = findViewById(R.id.btnNextQuestion);
 
